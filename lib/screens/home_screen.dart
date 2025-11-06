@@ -1,8 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'details_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String savedText = 'Ничего не сохранено';
+
+  Future<void> saveData() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('welcome', 'Добро пожаловать обратно!');
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Данные сохранены')),
+    );
+  }
+
+  Future<void> loadData() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      savedText = prefs.getString('welcome') ?? 'Ничего не сохранено';
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadData(); // Загружаем данные при старте
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +62,9 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              const Text(
-                "Добро пожаловать в ALGABAS!",
-                style: TextStyle(
+              Text(
+                savedText, // показываем сохранённый текст
+                style: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 0.5,
@@ -49,6 +78,34 @@ class HomeScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.grey, fontSize: 15),
               ),
               const SizedBox(height: 40),
+
+              // Кнопки SharedPreferences
+              ElevatedButton(
+                onPressed: saveData,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.teal,
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                ),
+                child: const Text(
+                  'Сохранить приветствие',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: loadData,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey[700],
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                ),
+                child: const Text(
+                  'Загрузить приветствие',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              const SizedBox(height: 30),
+
+              // Кнопка перехода на другой экран
               ElevatedButton.icon(
                 onPressed: () {
                   Navigator.push(
@@ -58,8 +115,7 @@ class HomeScreen extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.teal,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 30, vertical: 14),
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -82,4 +138,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-

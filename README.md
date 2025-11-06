@@ -1,16 +1,16 @@
-# alagabas
+ALGABAS
 
-A new Flutter project.
+ALGABAS — это приложение-магазин для заказа и доставки сладостей, приготовленных вручную мастерами Кошкпновым Шахраном и Эль Шамилем прямо из Алгабаса.
+Наши сладости — это не просто десерты, это кусочек уюта и тепла, сделанный с душой.
 
-## Getting Started
+Возможности
+Просмотр ассортимента 
+Добавление товаров в корзину
+Онлайн-заказ и доставка по Алгабасу и стране
+Удобный интерфейс и быстрая работа приложения
 
-This project is a starting point for a Flutter application.
+Технологии
+Flutter
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Автор
+Кашевич Андрей
